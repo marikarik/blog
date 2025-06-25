@@ -3,9 +3,10 @@
   flex-direction: column;
   gap: 10px;
   width: 384px;
-  height: 374px;
+  min-height: 580px;
+  max-height: 647px;
   margin: 0 auto;
-  padding: 48px 32px;
+  padding: 48px 36px;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(217, 217, 217);
   border-radius: 6px;
@@ -60,6 +61,30 @@
     line-height: 22px;
     letter-spacing: 0%;
     text-align: left;
+  }
+
+
+  &__label-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: rgb(89, 89, 89);
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0%;
+      }
+
+  &__checkbox {
+
+    padding-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: rgb(24, 144, 255);
+    transform: translateY(3px);
   }
 
   &__button {

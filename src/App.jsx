@@ -4,6 +4,7 @@ import Layout from './сomponents/Layout/Layout'
 import ArticlesList from './pages/ArticlesList/ArticlesList'
 import ArticleFull from './pages/ArticleFull/ArticleFull'
 import SignIn from './pages/SignIn/SignIn'
+import SignUp from './pages/SignUp/SignUp'
 function App() {
 
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route index element={<ArticlesList/>}/>
         <Route path='articles/:slug' element={<ArticleFull/>}/>
         <Route path='sign-in' element={<SignIn/>}/>
+        <Route path='sign-up' element={<SignUp/>}/>
       </Route>
     </Routes>
     </>
