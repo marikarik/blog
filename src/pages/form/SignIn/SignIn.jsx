@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { emailValidation, passwordValidation } from '../../validation/signInValidation'
+import { emailValidation, passwordValidation } from '../../../validation/signInValidation'
+import { useUserLoginMutation } from '../../../store/articlesAPI'
 
-import styles from './signIn.module.scss'
+import styles from '../form.module.scss'
 
 export default function SignIn () {
   const {
@@ -11,11 +12,23 @@ export default function SignIn () {
       errors,
     },
     handleSubmit,
-    watch
+    
   } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data))
+  const [userLogin] = useUserLoginMutation()
+  const navigate = useNavigate()
+
+  const onSubmit = async(data) => {
+    const user = {'user': data}
+    try {
+      const response = await userLogin(user).unwrap()
+      const token = response.user.token
+      navigate('/')
+      localStorage.setItem('userToken', token)
+      // console.log(userInfo)
+    } catch (error) {
+      console.log(error);
+    }
   }
   
 

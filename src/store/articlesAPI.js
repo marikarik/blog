@@ -12,8 +12,30 @@ export const articlesAPI = createApi({
     }),
     getArticleBySlug: build.query({
       query: (slug) => `articles/${slug}`
+    }),
+    createUser: build.mutation({
+      query: (data) => ({
+        url: 'users',
+        method: 'POST',
+        body: data
+      })
+    }),
+    userLogin: build.mutation({
+      query: (data) => ({
+        url: 'users/login',
+        method: 'POST',
+        body: data
+      })
+    }),
+    getUserInfo: build.query({
+      query: (token) => ({
+        url: 'user',
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
     })
   })
 })
 
-export const { useGetArticlesQuery, useGetArticleBySlugQuery } = articlesAPI
+export const { useGetArticlesQuery, useGetArticleBySlugQuery, useCreateUserMutation, useUserLoginMutation, useGetUserInfoQuery } = articlesAPI
