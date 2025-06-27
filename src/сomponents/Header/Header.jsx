@@ -9,6 +9,9 @@ export default function Header () {
   const {data, isLoading, isError} = useGetUserInfoQuery(token, {skip: !token})
   console.log(data);
 
+  const logOut = () => {
+    localStorage.removeItem('userToken')
+  }
   return (
     <header className={`${styles.header}`}>
       <Link to='/' className={`${styles.header__link}`}>Realworld Blog</Link>
@@ -20,12 +23,12 @@ export default function Header () {
         </>) : 
         (
           <>
-            <Link to='/' className={`${styles.header__link_createArticle} ${styles.header__button_create}`}>Create article</Link>
+            <Link to='/create-article' className={`${styles.header__link_createArticle} ${styles.header__button_create}`}>Create article</Link>
             <Link to='/user-profile' className={styles['header__user']}>
               <div className={styles['header__user-name']}>{data.user.username}</div>
               <img src='#' className={styles['header__user-img']} alt='image user'/>
             </Link>
-            <button className={styles['header__button-logout']}>Log Out</button>
+            <button className={styles['header__button-logout']} onClick={logOut}>Log Out</button>
           </>
         )
       }
