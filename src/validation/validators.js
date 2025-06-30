@@ -38,3 +38,38 @@ export const passwordRepeatValidation = (password) => ({
 export const checkboxValidation = {
   required: 'Please confirm your agreement to proceed',
 }
+
+export const newPasswordValidation = {
+  minLength: {
+    value: 6,
+    message: 'Password length should be from 6 to 40 characters'
+  },
+  maxLength: {
+    value: 40,
+    message: 'Password length should be from 6 to 40 characters'
+  }
+}
+
+
+export const urlValidation = {
+  pattern: {
+    value: /^https?:\/\/.+$/i,
+    message: 'Enter a valid image URL'
+  }
+}
+
+export const signInEmailValidation = {
+  required: "Email is required",
+  pattern: {
+    value: /^[a-z0-9]+[a-z0-9-_.+%]*@[a-z0-9-]+\.[a-z]{2,}$/i,
+    message: 'Oops! That doesn’t look like a valid email'
+  }
+}
+
+export const signInPasswordValidation = {
+  required: "Password is required",
+}
+
+export const inputValidation = {
+  required: 'This field is required',
+}

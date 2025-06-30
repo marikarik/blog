@@ -2,7 +2,17 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const articlesAPI = createApi({
   reducerPath: 'articlesAPI',
-  baseQuery: fetchBaseQuery({baseUrl: 'https://blog-platform.kata.academy/api/'}),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://blog-platform.kata.academy/api/',
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem('userToken')
+      if(token) {
+        headers.set('Authorization', `Token ${token}`)
+      }
+      return headers
+    }
+  }),
+  tagTypes: ['User'],
   endpoints: (build) => ({
     getArticles: build.query({
       query: (offset) => ({
@@ -28,14 +38,27 @@ export const articlesAPI = createApi({
       })
     }),
     getUserInfo: build.query({
-      query: (token) => ({
+      query: () => ({
         url: 'user',
-        headers: {
-          Authorization: `Token ${token}`
-        }
-      })
+      }),
+      providesTags: ['User']
+    }),
+    updateUserInfo: build.mutation({
+      query: (data) => ({
+        url: 'user',
+        method: 'PUT',
+        body: data
+      }),
+      invalidatesTags: ['User']
     })
   })
 })
 
-export const { useGetArticlesQuery, useGetArticleBySlugQuery, useCreateUserMutation, useUserLoginMutation, useGetUserInfoQuery } = articlesAPI
+export const { useGetArticlesQuery, 
+  useGetArticleBySlugQuery, 
+  useCreateUserMutation, 
+  useUserLoginMutation, 
+  useGetUserInfoQuery, 
+  useUpdateUserInfoMutation,
+  
+} = articlesAPI

@@ -1,11 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { emailValidation, passwordValidation } from '../../../validation/signInValidation'
+import { emailValidation, passwordValidation } from '../../../validation/validators'
 import { useUserLoginMutation } from '../../../store/articlesAPI'
+import { logIn } from '../../../store/authSlice'
+import { useDispatch } from 'react-redux'
 
+import { Alert } from 'antd'
 import styles from '../form.module.scss'
 
 export default function SignIn () {
+
+  const dispatch = useDispatch()
   const {
     register,
     formState: {
@@ -15,17 +20,25 @@ export default function SignIn () {
     
   } = useForm()
 
-  const [userLogin] = useUserLoginMutation()
+  const [userLogin, {isError}] = useUserLoginMutation()
   const navigate = useNavigate()
 
   const onSubmit = async(data) => {
     const user = {'user': data}
     try {
       const response = await userLogin(user).unwrap()
-      const token = response.user.token
-      navigate('/')
+      const {token, username, email} = response.user
       localStorage.setItem('userToken', token)
-      // console.log(userInfo)
+      localStorage.setItem('user', JSON.stringify(response.user))
+      dispatch(logIn({
+        isLogged: true,
+        token: token,
+        user: {
+          username: username,
+          email: email
+        }
+      }))
+      navigate('/')
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +62,7 @@ export default function SignIn () {
           />
           <div className={styles['form__error-message']}>{errors?.password && <p>{errors?.password.message}</p>}</div>
         </label>
-
+        {isError ? <Alert style={{borderRadius: '4px', width: '320px'}} message="Incorrect username or password" type="error"/>: null}
         <button type='submit' className={styles['form__button']}>Login</button>
         <p className={styles['form__button-text']}>Don’t have an account?
           <Link className={styles['form__link']} to='/sign-up'> Sign Up</Link>

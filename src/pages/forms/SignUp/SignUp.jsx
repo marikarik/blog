@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { userValidation, emailValidation, passwordValidation, passwordRepeatValidation, checkboxValidation } from '../../../validation/signUpValidation'
+import { userValidation, emailValidation, passwordValidation, passwordRepeatValidation, checkboxValidation } from '../../../validation/validators'
 import { useCreateUserMutation } from '../../../store/articlesAPI'
 import { Result } from 'antd'
 
