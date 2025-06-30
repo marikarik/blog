@@ -8,7 +8,7 @@ import styles from './article.module.scss'
 
 export default function ArticlePreview ({article, isFull = false}) {
   const formatDate = (date) => {
-    return format(new Date(date), 'MMMM dddd, yyyy')
+    return format(new Date(date), 'MMMM dd, yyyy')
   }
 
   if(!article) return null
