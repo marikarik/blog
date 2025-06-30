@@ -23,22 +23,31 @@ export default function  AcrticleCreate () {
       <form className={`${styles['form']} ${styles[`create-article-form`]}`} onSubmit={handleSubmit(onSubmit)}>
         <label className={`${styles['form__label']} ${styles['create-article-form__label']}`}>Title
           <input className={`${styles['form__input']} ${styles['create-article-form__input']}`} placeholder='Title'
-          {...register('text', inputValidation)}
+          {...register('title', inputValidation)}
           />
-          <div className={styles['form__error-message']}>{errors?.text && <p>{errors?.text.message}</p>}</div>
+          <div className={styles['form__error-message']}>{errors?.title && <p>{errors?.title.message}</p>}</div>
         </label>
         <label className={`${styles['form__label']} ${styles['create-article-form__label']}`}>Short description
-          <input className={`${styles['form__input']} ${styles['create-article-form__input']}`} placeholder='Description'/>
+          <input className={`${styles['form__input']} ${styles['create-article-form__input']}`} placeholder='Description'
+          {...register('description', inputValidation)}
+          />
+          <div className={styles['form__error-message']}>{errors?.description && <p>{errors?.description.message}</p>}</div>
         </label>
         <label className={`${styles['form__label']} ${styles['create-article-form__label-textarea']}`}>Text
-          <textarea className={`${styles['form__input']} ${styles['create-article-form__textarea']}`} placeholder='Text'/>
+          <textarea className={`${styles['form__input']} ${styles['create-article-form__textarea']}`} placeholder='Text'
+          {...register('body', inputValidation)}
+          />
+          <div className={styles['form__error-message']}>{errors?.body && <p>{errors?.body.message}</p>}</div>
         </label>
         <label className={`${styles['form__label']} ${styles['label-tags-wrap']}`}>Tags
           <div className={styles['form-tags']}>
-            <input className={`${styles['form__input']} ${styles['form-tags__input-tag']}`} placeholder='Description'/>
+            <input className={`${styles['form__input']} ${styles['form-tags__input-tag']}`} placeholder='Tag'
+            {...register('tags', inputValidation)}
+            />
             <button className={`${styles['form-tags_button']} ${styles['form-tags_button--delete']}`}>Delete</button>
             <button className={`${styles['form-tags_button']} ${styles['form-tags_button--add']}`}>Add tag</button>
           </div>
+          <div className={styles['form__error-message']}>{errors?.tags && <p>{errors?.tags.message}</p>}</div>
         </label>        
         <button type='onSubmit' className={styles['form__button']}>Save</button>                
       </form>
