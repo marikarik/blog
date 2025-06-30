@@ -1,11 +1,16 @@
-import { HeartOutlined } from '@ant-design/icons'
-import { Tag } from 'antd'
 import { Link } from 'react-router-dom'
 import Markdown from 'react-markdown'
+import { format } from 'date-fns'
 
+import { HeartOutlined } from '@ant-design/icons'
+import { Tag } from 'antd'
 import styles from './article.module.scss'
 
 export default function ArticlePreview ({article, isFull = false}) {
+  const formatDate = (date) => {
+    return format(new Date(date), 'MMMM dddd, yyyy')
+  }
+
   if(!article) return null
   const {title, description: summary, favoritesCount, tagList, createdAt, body, author, slug} = article
   return (
@@ -39,7 +44,7 @@ export default function ArticlePreview ({article, isFull = false}) {
         <div className={`${styles.article__meta}`}>
           <div className={`${styles.article__autor}`}>
             <span className={`${styles.article__autor_name}`}>{author.username}</span>
-            <span className={`${styles.article__date}`}>{createdAt}</span>
+            <span className={`${styles.article__date}`}>{formatDate(createdAt)}</span>
           </div>
           <img className={`${styles.article__autor_image}`} alt='oops' src={author.image}></img>
         </div>

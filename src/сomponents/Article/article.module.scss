@@ -1,5 +1,4 @@
 .article{
-  // display: flex;
   gap: 85px;
   max-width: 938px;
   height: 140px;
@@ -19,9 +18,12 @@
   }
 
   &__body {
-    // max-width: 682px;
     display: flex;
     gap: 4px;
+
+    &_info {
+      width: 700px;
+    }
 
     &--full {
       margin-bottom: 25px;
@@ -34,6 +36,7 @@
   }
 
   &__summary {
+    // max-width: 682px;
     max-height: 45px;
     font-size: 12px;
     line-height: 22px;
