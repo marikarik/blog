@@ -12,13 +12,14 @@ export const articlesAPI = createApi({
       return headers
     }
   }),
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Article'],
   endpoints: (build) => ({
     getArticles: build.query({
       query: (offset) => ({
         url: 'articles',
         params: {limit: 5, offset}
-      })
+      }),
+      providesTags: [{type: 'Article', id: 'LIST'}]
     }),
     getArticleBySlug: build.query({
       query: (slug) => `articles/${slug}`
@@ -50,6 +51,21 @@ export const articlesAPI = createApi({
         body: data
       }),
       invalidatesTags: ['User']
+    }),
+    createArticle: build.mutation({
+      query: (data) => ({
+        url: 'articles',
+        method: 'POST',
+        body: {'article': data}
+      }),
+      invalidatesTags: [{type: 'Article', id: 'LIST'}]
+    }),
+    deleteArticle: build.mutation({
+      query: (slug) => ({
+        url: `articles/${slug}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: [{type: 'Article', id: 'LIST'}]
     })
   })
 })
@@ -60,5 +76,6 @@ export const { useGetArticlesQuery,
   useUserLoginMutation, 
   useGetUserInfoQuery, 
   useUpdateUserInfoMutation,
-  
+  useCreateArticleMutation,
+  useDeleteArticleMutation
 } = articlesAPI

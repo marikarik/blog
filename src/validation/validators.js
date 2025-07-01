@@ -70,10 +70,15 @@ export const signInPasswordValidation = {
   required: "Password is required",
 }
 
-export const inputValidation = {
+export const inputTagValidation = {
   validate: (value) => {
     if (!value) return true
     if (value.length > 20) return 'Max length is 20 characters'
     return true
   }
 }
+
+export const inputValidation = {
+  required: 'This field is requierd'
+}
+
