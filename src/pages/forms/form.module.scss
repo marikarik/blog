@@ -4,7 +4,7 @@
   gap: 10px;
   width: 384px;
   min-height: 374px;
-  max-height: 647px;
+  // max-height: 647px;
   margin: 0 auto;
   padding: 48px 32px;
   background-color: rgb(255, 255, 255);
@@ -149,7 +149,7 @@
   }
 
   &__textarea{
-    width: 864px;
+    width: 100%;
     min-height: 168px;
     max-height: auto;
     resize: vertical;
@@ -158,6 +158,9 @@
 }
 .label-tags-wrap{
   width: 100%;
+  display: grid;
+  justify-content: start;
+  gap: 5px;
 }
 
 .form-tags {

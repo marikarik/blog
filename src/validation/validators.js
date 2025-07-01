@@ -71,5 +71,9 @@ export const signInPasswordValidation = {
 }
 
 export const inputValidation = {
-  required: 'This field is required',
+  validate: (value) => {
+    if (!value) return true
+    if (value.length > 20) return 'Max length is 20 characters'
+    return true
+  }
 }
