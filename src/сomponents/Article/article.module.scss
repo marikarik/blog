@@ -84,13 +84,15 @@
 
 .article__header {
   display: flex;
-  gap: 13px;
+  // gap: 13px;
 
   &_title {
     font-size: 20px;
     line-height: 26px;
     font-weight: 400;
     color: rgba(24, 144, 255, 1);
+    margin-right: 13px;
+
   }
 }
 

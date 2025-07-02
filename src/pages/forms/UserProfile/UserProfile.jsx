@@ -7,7 +7,8 @@ import { Alert, Spin } from 'antd'
 import styles from '../form.module.scss'
 
 export default function UserProfile () {
-  const [updateUserInfo, {isLoading, isSuccess, isError}] = useUpdateUserInfoMutation()
+  const [updateUserInfo, {isLoading, isSuccess, isError, error}] = useUpdateUserInfoMutation()
+  console.log(error);
   const token = localStorage.getItem('userToken')
   const user = localStorage.getItem('user')
   const {username, email} = JSON.parse(user)
@@ -47,6 +48,7 @@ export default function UserProfile () {
             />
             <div className={styles['form__error-message']}>{errors?.username && 
               <p>{errors?.username.message}</p>}
+              {error?.data.errors.username ? <p>This username is already taken</p> : null}
             </div>          
           </label>
           <label className={styles['form__label']}>Email address
@@ -55,9 +57,10 @@ export default function UserProfile () {
             />
             <div className={styles['form__error-message']}>{errors?.email && 
               <p>{errors?.email.message}</p>}
+              {error?.data.errors.email ? <p>This email address is already registered</p> : null}
             </div> 
           </label>
-          <label className={styles['form__label']}>New password
+          <label className={styles['form__label']} autoComplete='new-password'>New password
             <input className={styles['form__input']} placeholder='New password'
               {...register('newPassword', newPasswordValidation)}
             />

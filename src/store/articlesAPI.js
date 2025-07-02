@@ -22,7 +22,8 @@ export const articlesAPI = createApi({
       providesTags: [{type: 'Article', id: 'LIST'}]
     }),
     getArticleBySlug: build.query({
-      query: (slug) => `articles/${slug}`
+      query: (slug) => `articles/${slug}`,
+      providesTags: (result, error, slug) => [{type: 'Article', id: slug}]
     }),
     createUser: build.mutation({
       query: (data) => ({
@@ -66,6 +67,17 @@ export const articlesAPI = createApi({
         method: 'DELETE'
       }),
       invalidatesTags: [{type: 'Article', id: 'LIST'}]
+    }),
+    updateArticle: build.mutation({
+      query: ({slug, data}) => ({
+        url: `articles/${slug}`,
+        method: 'PUT',
+        body: {'article': data}
+      }),
+      invalidatesTags: (result, error, {slug}) => [
+        {type: 'Article', id: 'LIST'},
+        {type: 'Article', id: slug}
+      ]
     })
   })
 })
@@ -77,5 +89,6 @@ export const { useGetArticlesQuery,
   useGetUserInfoQuery, 
   useUpdateUserInfoMutation,
   useCreateArticleMutation,
-  useDeleteArticleMutation
+  useDeleteArticleMutation,
+  useUpdateArticleMutation
 } = articlesAPI

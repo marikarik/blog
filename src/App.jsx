@@ -6,7 +6,7 @@ import ArticleFull from './pages/ArticleFull/ArticleFull'
 import SignIn from './pages/forms/SignIn/SignIn'
 import SignUp from './pages/forms/SignUp/SignUp'
 import UserProfile from './pages/forms/UserProfile/UserProfile'
-import AcrticleCreate from './pages/forms/ArticleCreate/ArticleCreate'
+import AcrticleCreate from './pages/forms/ArticleCreateEdit/ArticleCreateEdit'
 function App() {
 
   return (
@@ -14,11 +14,12 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout/>}>
         <Route index element={<ArticlesList/>}/>
-        <Route path='articles/:slug' element={<ArticleFull/>}/>
-        <Route path='sign-in' element={<SignIn/>}/>
-        <Route path='sign-up' element={<SignUp/>}/>
-        <Route path='create-article' element={<AcrticleCreate/>}/>
-        <Route path='user-profile' element={<UserProfile/>}/>
+        <Route path='/articles/:slug' element={<ArticleFull/>}/>
+        <Route path='/sign-in' element={<SignIn/>}/>
+        <Route path='/sign-up' element={<SignUp/>}/>
+        <Route path='/create-article' element={<AcrticleCreate isEdit={false}/>}/>
+        <Route path='/user-profile' element={<UserProfile/>}/>
+        <Route path='/articles/:slug/edit' element={<AcrticleCreate isEdit/>}/>
       </Route>
     </Routes>
     </>

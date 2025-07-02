@@ -8,7 +8,7 @@ import { Tag, Popconfirm, Alert } from 'antd'
 import styles from './article.module.scss'
 
 export default function ArticlePreview ({article, isFull = false}) {
-  const [deleteArticle] = useDeleteArticleMutation()
+  const [deleteArticle, {isError}] = useDeleteArticleMutation()
   const navigate = useNavigate()
 
   const userString = localStorage.getItem('user')
@@ -27,6 +27,10 @@ export default function ArticlePreview ({article, isFull = false}) {
     } catch (err) {
       console.err(err)
     }
+  }
+
+  const hahdleEditArticle = (slug) => {
+    navigate(`/articles/${slug}/edit`)
   }
 
   if(!article) return null
@@ -78,7 +82,7 @@ export default function ArticlePreview ({article, isFull = false}) {
               >
               <button className={`${styles['article-actions__button']} ${styles['article-actions__button-delete']}`}>Delete</button>
               </Popconfirm>
-              <button className={`${styles['article-actions__button']} ${styles['article-actions__button-edit']}`}>Edit</button>
+              <button className={`${styles['article-actions__button']} ${styles['article-actions__button-edit']}`} onClick={() => {hahdleEditArticle(slug)}}>Edit</button>
             </div>) : null
           }
         </div>
@@ -86,7 +90,7 @@ export default function ArticlePreview ({article, isFull = false}) {
       {isFull && (
         <Markdown>{body}</Markdown>
       )}
-      {(true && (nickname === author.username) && isFull ) ? (<Alert style={{marginTop: '15px'}} showIcon  message="Oops! Something went wrong when deleting your article. Please try again" type="error" />) : null} 
+      {(isError && (nickname === author.username) && isFull ) ? (<Alert style={{marginTop: '15px'}} showIcon  message="Oops! Something went wrong when deleting your article. Please try again" type="error" />) : null} 
     </article>
   )
 }

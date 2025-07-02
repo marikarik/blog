@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { userValidation, emailValidation, passwordValidation, passwordRepeatValidation, checkboxValidation } from '../../../validation/validators'
 import { useCreateUserMutation } from '../../../store/articlesAPI'
-import { Result } from 'antd'
+import { Result, Alert } from 'antd'
 
 import styles from '../form.module.scss'
 
@@ -11,6 +11,7 @@ export default function SignUp () {
 
   const [serverError, setServerEror] = useState()
   const [errorStatus, setErrorStatus] = useState()
+  console.log(serverError, errorStatus);
 
   const {
     register,
@@ -19,7 +20,7 @@ export default function SignUp () {
     watch
   } = useForm()
 
-  const [createUser] = useCreateUserMutation()
+  const [createUser, {isSuccess}] = useCreateUserMutation()
   
   const onSubmit = async (data) => {
     const {username, email, password} = data
@@ -67,13 +68,13 @@ export default function SignUp () {
               </div>
             </label>
             <label className={styles['form__label']} >Password
-              <input className={`${styles['form__input']} ${errors?.password ? styles['login-form__input-error'] : ''}`} placeholder='Password' type='password'
+              <input className={`${styles['form__input']} ${errors?.password ? styles['login-form__input-error'] : ''}`} placeholder='Password' type='password' autoComplete='new-password'
                 {...register('password', passwordValidation)}
               />
               <div className={styles['form__error-message']}>{errors?.password && <p>{errors?.password.message}</p>}</div>
             </label>
             <label className={styles['form__label']}>Repeat Password
-              <input className={`${styles['form__input']} ${errors?.repeatPassword ? styles['login-form__input-error'] : ''}`} placeholder='Repeat Password' type='password'
+              <input className={`${styles['form__input']} ${errors?.repeatPassword ? styles['login-form__input-error'] : ''}`} placeholder='Repeat Password' type='password' autoComplete='new-password'
                 {...register('repeatPassword', passwordRepeatValidation(password))}
               />
               <div className={styles['form__error-message']}>{errors?.repeatPassword && <p>{errors?.repeatPassword.message}</p>}</div>
@@ -86,6 +87,7 @@ export default function SignUp () {
                 I agree to the processing of my personal information
             </label>
             <div className={styles['form__error-message']}>{errors?.checkbox && <p>{errors?.checkbox.message}</p>}</div>
+            {isSuccess ? <Alert message="Registration successful! You can now log in to your profiless Text" type="success" /> : null}
             <button className={styles['form__button']}>Create</button>
             <p className={styles['form__button-text']}>Already have an account?
               <Link className={styles['form__link']} to='/sign-in'> Sign In</Link>

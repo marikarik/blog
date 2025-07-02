@@ -1,18 +1,24 @@
 import { useForm } from 'react-hook-form'
 import { inputTagValidation, inputValidation } from '../../../validation/validators'
-import { useState } from 'react'
-import { useCreateArticleMutation } from '../../../store/articlesAPI'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useCreateArticleMutation, useGetArticleBySlugQuery, useUpdateArticleMutation } from '../../../store/articlesAPI'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import { Alert, Spin } from "antd"
+import { Alert, Spin, Result } from "antd"
 import styles from '../form.module.scss'
 
 
-export default function  AcrticleCreate () {
+export default function  AcrticleCreate ({isEdit}) {
   const navigate = useNavigate()
+  const {slug} = useParams()
+  console.log(slug);
   const [tagList, setTagList] = useState([])
-  const [createdArticle, setCreateArticle] = useState()
-  const [createArticle, {isSuccess, isError, isLoading}] = useCreateArticleMutation()
+  // const [createdArticle, setCreateArticle] = useState()
+  const [createArticle, {isError, isLoading}] = useCreateArticleMutation()
+  const {data, isError: isErrorGetArticle} = useGetArticleBySlugQuery(slug, {skip: !slug})
+  const [updateArticle, {isLoading: isLoadingUpdateArticle, isError: isErrorUpdateArticle}] = useUpdateArticleMutation()
+  console.log(isErrorGetArticle);
+
 
   const {
     register,
@@ -23,7 +29,15 @@ export default function  AcrticleCreate () {
     watch,
     resetField,
     reset
-  } = useForm()
+  } = useForm({defaultValues:{title: '', description: '', body: ''}})
+
+  useEffect(() => {
+    if(isEdit && data?.article) {
+      const {title, description, body, tagList} = data.article
+      reset({title, description, body})
+      setTagList(tagList || []) 
+    }
+  }, [data])
 
 
   const tagValue = watch('tags')
@@ -49,12 +63,14 @@ export default function  AcrticleCreate () {
 
   const onSubmit = async(data) => {
     console.log({...data, tags: tagList})
+    const {body, description, title} = data
     try {
-      const response = await createArticle({...data, tags: tagList}).unwrap()
+      let response
+      if(!isEdit) response = await createArticle({body, description, title, tagList}).unwrap()
+      else  response = await updateArticle({slug, data: {body, description, title, tagList}}).unwrap()
       const article = response.article
-      const {slug} = article
-      setCreateArticle(article)
-      navigate(`/articles/${slug}`)
+      // setCreateArticle(article)
+      navigate(`/articles/${article.slug}`)
       
     } catch (err) {
       console.error(err)
@@ -62,9 +78,12 @@ export default function  AcrticleCreate () {
   }
 
   return (
+      isErrorGetArticle ? (<Result status="404" subTitle="Error loading the article. Please try again. The article may have been deleted"/>) :
       (<div className={`${styles['form-wrap']} ${styles['create-article-form-wrap']}`}>
-        <h2 className={styles['form__header']}>Create new article</h2>
-        { isLoading ? <Spin style={{marginTop: '50px'}} size="large"/> : 
+        {!isEdit ? <h2 className={styles['form__header']}>Create new article</h2> 
+        : <h2 className={styles['form__header']}>Edit article</h2>
+        }
+        { isLoading || isLoadingUpdateArticle ? <Spin style={{marginTop: '50px'}} size="large"/> : 
           <form className={`${styles['form']} ${styles[`create-article-form`]}`} onSubmit={handleSubmit(onSubmit)}>
             <label className={`${styles['form__label']} ${styles['create-article-form__label']}`}>Title
               <input className={`${styles['form__input']} ${styles['create-article-form__input']}`} placeholder='Title'
@@ -109,10 +128,13 @@ export default function  AcrticleCreate () {
               </div>
               <div className={styles['form__error-message']}>{errors?.tags && <p>{errors?.tags.message}</p>}</div>
             </label>
-            {isError ? (<Alert  showIcon  message="Oops! Something went wrong when creating your article. Please try again" type="error" />) : null}
+            {isError ? (<Alert  showIcon  message="Oops! Something went wrong when creating your article. Please try again" type="error" />) 
+            :isErrorUpdateArticle ? (<Alert  showIcon  message="Oops! Something went wrong when updeting your article. Please try again" type="error" />)
+            : null
+            }
             <button type='onSubmit' className={styles['form__button']}>Save</button>                
           </form>
         }
-      </div>)  
+      </div>) 
   )
 }
