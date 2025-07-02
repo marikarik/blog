@@ -6,20 +6,22 @@
   gap: 27px;
   align-items: center;
   margin-bottom: 25px;
-  
-  &__link:nth-child(2){
+
+  &__link:nth-child(2) {
     margin-left: auto;
   }
 
-  &__link{
+  &__link {
     text-decoration: none;
     color: black;
     display: flex;
     align-items: center;
-    
+
     &:hover {
       color: gray;
-      transition: background-color 0.3s ease-in-out, color 0.5s ease-in-out;
+      transition:
+        background-color 0.3s ease-in-out,
+        color 0.5s ease-in-out;
     }
   }
 
@@ -40,26 +42,28 @@
     letter-spacing: 0px;
   }
 
-  &__button_create{
-      text-decoration: none;
-      color: rgba(82, 196, 26, 1);
-      border: 1px solid rgba(82, 196, 26, 1);
-      border-radius: 5px;
-      padding: 16px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.3s ease-in-out, color 0.5s ease-in-out;
+  &__button_create {
+    text-decoration: none;
+    color: rgba(82, 196, 26, 1);
+    border: 1px solid rgba(82, 196, 26, 1);
+    border-radius: 5px;
+    padding: 16px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background-color 0.3s ease-in-out,
+      color 0.5s ease-in-out;
 
-      &:hover {
-        background-color: rgba(82, 196, 26, 1);
-        color: white;
-      }
+    &:hover {
+      background-color: rgba(82, 196, 26, 1);
+      color: white;
+    }
   }
 
   &__button-logout {
     all: unset;
-    cursor: pointer;      
+    cursor: pointer;
     width: 109px;
     height: 51px;
     border: 1px solid rgba(0, 0, 0, 0.75);
@@ -73,32 +77,33 @@
     line-height: 28px;
     color: rgba(0, 0, 0, 0.75);
 
-      &:hover {
-        background: rgba(0, 0, 0, 0.75);
-        color: white;
-        transition: background-color 0.3s ease-in-out, color 0.5s ease-in-out;
-      }
+    &:hover {
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      transition:
+        background-color 0.3s ease-in-out,
+        color 0.5s ease-in-out;
+    }
   }
 
-    &__user{
-      text-decoration: none;
-      display: flex;
-      gap: 12px;
-      align-items: center;
+  &__user {
+    text-decoration: none;
+    display: flex;
+    gap: 12px;
+    align-items: center;
 
-      &-name {
-        color: rgba(0, 0, 0, 0.85);
-        font-family: Inter UI;
-        font-size: 18px;
-        font-weight: 400;
-        line-height: 28px;
-      }
-
-      &-img {
-        width: 45px;
-        height: 46px;
-        border-radius: 50%;
-        background-color: pink;
-      }
+    &-name {
+      color: rgba(0, 0, 0, 0.85);
+      font-family: Inter UI;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 28px;
     }
+
+    &-img {
+      width: 45px;
+      height: 46px;
+      border-radius: 50%;
+    }
+  }
 }

@@ -10,7 +10,13 @@
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(217, 217, 217);
   border-radius: 6px;
-  box-shadow: 0px 0.61px 2.93px 0px rgba(0, 0, 0, 0.02),0px 1.46px 7.05px 0px rgba(0, 0, 0, 0.03),0px 2.75px 13.27px 0px rgba(0, 0, 0, 0.04),0px 4.91px 23.68px 0px rgba(0, 0, 0, 0.04),0px 9.19px 44.28px 0px rgba(0, 0, 0, 0.05),0px 22px 106px 0px rgba(0, 0, 0, 0.07);
+  box-shadow:
+    0px 0.61px 2.93px 0px rgba(0, 0, 0, 0.02),
+    0px 1.46px 7.05px 0px rgba(0, 0, 0, 0.03),
+    0px 2.75px 13.27px 0px rgba(0, 0, 0, 0.04),
+    0px 4.91px 23.68px 0px rgba(0, 0, 0, 0.04),
+    0px 9.19px 44.28px 0px rgba(0, 0, 0, 0.05),
+    0px 22px 106px 0px rgba(0, 0, 0, 0.07);
 }
 
 .form {
@@ -67,7 +73,6 @@
     text-align: left;
   }
 
-
   &__label-checkbox {
     display: flex;
     align-items: flex-start;
@@ -80,10 +85,9 @@
     font-weight: 400;
     line-height: 22px;
     letter-spacing: 0%;
-      }
+  }
 
   &__checkbox {
-
     padding-top: 3px;
     width: 16px;
     height: 16px;
@@ -123,18 +127,16 @@
   }
 }
 
-
 // стили блока с тегами
 .create-article-form-wrap {
   width: 938px;
   // min-height: 701px;
-
 }
 
 .create-article-form {
   width: 100%;
 
-  &__label{
+  &__label {
     width: 100%;
     height: 64px;
   }
@@ -143,20 +145,19 @@
     height: 40px;
   }
 
-  &__label-textarea{
+  &__label-textarea {
     width: 100%;
     min-height: 174px;
   }
 
-  &__textarea{
+  &__textarea {
     width: 100%;
     min-height: 168px;
     max-height: auto;
     resize: vertical;
   }
-
 }
-.label-tags-wrap{
+.label-tags-wrap {
   width: 100%;
   display: grid;
   justify-content: start;
@@ -166,13 +167,13 @@
 .form-tags {
   display: flex;
   gap: 18px;
-  
-  &__input-tag{
+
+  &__input-tag {
     width: 300px;
     height: 40px;
   }
 
-  &_button{
+  &_button {
     all: unset;
     cursor: pointer;
     width: 118px;
@@ -189,8 +190,10 @@
     &--delete {
       border: 1px solid rgb(245, 34, 45);
       color: rgb(245, 34, 45);
-      transition: background-color 0.3s ease-in-out, color 0.5s ease-in-out;
-      
+      transition:
+        background-color 0.3s ease-in-out,
+        color 0.5s ease-in-out;
+
       &:hover {
         color: white;
         background-color: rgb(245, 34, 45);
@@ -200,7 +203,9 @@
     &--add {
       border: 1px solid rgb(24, 144, 255);
       color: rgb(24, 144, 255);
-      transition: background-color 0.3s ease-in-out, color 0.5s ease-in-out;
+      transition:
+        background-color 0.3s ease-in-out,
+        color 0.5s ease-in-out;
 
       &:hover {
         color: white;

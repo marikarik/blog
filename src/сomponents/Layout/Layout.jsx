@@ -1,14 +1,14 @@
-import { Outlet } from "react-router-dom"
-import Header from "../Header/Header"
+import { Outlet } from 'react-router-dom'
+import Header from '../Header/Header'
 
 import styles from './layout.module.scss'
 
-export default function Layout () {
+export default function Layout() {
   return (
     <>
-      <Header/>
+      <Header />
       <main className={`${styles.main_page}`}>
-         <Outlet/> 
+        <Outlet />
       </main>
     </>
   )

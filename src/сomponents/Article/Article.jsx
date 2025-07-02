@@ -8,25 +8,24 @@ import { HeartOutlined } from '@ant-design/icons'
 import { Tag, Popconfirm, Alert } from 'antd'
 import styles from './article.module.scss'
 
-export default function ArticlePreview ({article, isFull = false}) {
-  const [deleteArticle, {isError}] = useDeleteArticleMutation()
+export default function ArticlePreview({ article, isFull = false }) {
+  const [deleteArticle, { isError }] = useDeleteArticleMutation()
   const navigate = useNavigate()
 
   const userString = localStorage.getItem('user')
-  const user = userString ?  JSON.parse(userString) : null
+  const user = userString ? JSON.parse(userString) : null
   const nickname = user?.username
-  console.log(user)
 
   const formatDate = (date) => {
     return format(new Date(date), 'MMMM dd, yyyy')
   }
 
-  const handleDeleteArticle = async(slug) => {
+  const handleDeleteArticle = async (slug) => {
     try {
       await deleteArticle(slug).unwrap()
       navigate('/')
     } catch (err) {
-      console.err(err)
+      console.error(err)
     }
   }
 
@@ -34,8 +33,18 @@ export default function ArticlePreview ({article, isFull = false}) {
     navigate(`/articles/${slug}/edit`)
   }
 
-  if(!article) return null
-  const {title, description: summary, favorited, favoritesCount, tagList, createdAt, body, author, slug} = article
+  if (!article) return null
+  const {
+    title,
+    description: summary,
+    favorited,
+    favoritesCount,
+    tagList,
+    createdAt,
+    body,
+    author,
+    slug,
+  } = article
   return (
     <article className={`${styles.article} ${isFull ? styles['article--full'] : ''}`}>
       <div className={`${styles.article__body} ${isFull ? styles['article__body--full'] : ''}`}>
@@ -44,13 +53,11 @@ export default function ArticlePreview ({article, isFull = false}) {
             {!isFull ? (
               <Link className={`${styles.article__header_title}`} to={`/articles/${slug}`}>
                 {title}
-              </Link>) : (
-              <h2 className={`${styles.article__header_title}`}>
-                {title}
-              </h2>
-              )
-            }
-            <ButtonLike favoritesCount={favoritesCount} slug={slug} favorited={favorited}/>
+              </Link>
+            ) : (
+              <h2 className={`${styles.article__header_title}`}>{title}</h2>
+            )}
+            <ButtonLike favoritesCount={favoritesCount} slug={slug} favorited={favorited} />
             <span className={styles['article__count-likes']}>{favoritesCount}</span>
           </div>
           <ul className={`${styles.article__tagsList}`}>
@@ -70,29 +77,46 @@ export default function ArticlePreview ({article, isFull = false}) {
               <span className={`${styles.article__autor_name}`}>{author.username}</span>
               <span className={`${styles.article__date}`}>{formatDate(createdAt)}</span>
             </div>
-            <img className={`${styles.article__autor_image}`} alt='oops' src={author.image}></img>
+            <img className={`${styles.article__autor_image}`} alt="oops" src={author.image}></img>
           </div>
-          {(nickname === author.username) && isFull ?
-            (<div className={styles['article-actions']}>
+          {nickname === author.username && isFull ? (
+            <div className={styles['article-actions']}>
               <Popconfirm
                 placement={'right'}
                 description="Are you sure to delete this article?"
-                onConfirm={() => {handleDeleteArticle(slug)}}
+                onConfirm={() => {
+                  handleDeleteArticle(slug)
+                }}
                 okText="Yes"
                 cancelText="No"
               >
-              <button className={`${styles['article-actions__button']} ${styles['article-actions__button-delete']}`}>Delete</button>
+                <button
+                  className={`${styles['article-actions__button']} ${styles['article-actions__button-delete']}`}
+                >
+                  Delete
+                </button>
               </Popconfirm>
-              <button className={`${styles['article-actions__button']} ${styles['article-actions__button-edit']}`} onClick={() => {hahdleEditArticle(slug)}}>Edit</button>
-            </div>) : null
-          }
+              <button
+                className={`${styles['article-actions__button']} ${styles['article-actions__button-edit']}`}
+                onClick={() => {
+                  hahdleEditArticle(slug)
+                }}
+              >
+                Edit
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
-      {isFull && (
-        <Markdown>{body}</Markdown>
-      )}
-      {(isError && (nickname === author.username) && isFull ) ? (<Alert style={{marginTop: '15px'}} showIcon  message="Oops! Something went wrong when deleting your article. Please try again" type="error" />) : null} 
+      {isFull && <Markdown>{body}</Markdown>}
+      {isError && nickname === author.username && isFull ? (
+        <Alert
+          style={{ marginTop: '15px' }}
+          showIcon
+          message="Oops! Something went wrong when deleting your article. Please try again"
+          type="error"
+        />
+      ) : null}
     </article>
   )
 }
-
