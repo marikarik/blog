@@ -3,6 +3,7 @@ import Markdown from 'react-markdown'
 import { format } from 'date-fns'
 import { useDeleteArticleMutation } from '../../store/articlesAPI'
 
+import ButtonLike from '../../сomponents/ButtonLike/ButtonLike'
 import { HeartOutlined } from '@ant-design/icons'
 import { Tag, Popconfirm, Alert } from 'antd'
 import styles from './article.module.scss'
@@ -34,7 +35,7 @@ export default function ArticlePreview ({article, isFull = false}) {
   }
 
   if(!article) return null
-  const {title, description: summary, favoritesCount, tagList, createdAt, body, author, slug} = article
+  const {title, description: summary, favorited, favoritesCount, tagList, createdAt, body, author, slug} = article
   return (
     <article className={`${styles.article} ${isFull ? styles['article--full'] : ''}`}>
       <div className={`${styles.article__body} ${isFull ? styles['article__body--full'] : ''}`}>
@@ -49,7 +50,7 @@ export default function ArticlePreview ({article, isFull = false}) {
               </h2>
               )
             }
-            <HeartOutlined />
+            <ButtonLike favoritesCount={favoritesCount} slug={slug} favorited={favorited}/>
             <span>{favoritesCount}</span>
           </div>
           <ul className={`${styles.article__tagsList}`}>

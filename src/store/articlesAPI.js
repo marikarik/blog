@@ -78,6 +78,16 @@ export const articlesAPI = createApi({
         {type: 'Article', id: 'LIST'},
         {type: 'Article', id: slug}
       ]
+    }),
+    toggleLike: build.mutation({
+      query: ({slug, favorited}) => ({
+        url: `articles/${slug}/favorite`,
+        method: !favorited ? 'POST' : 'DELETE'
+      }),
+      invalidatesTags: (result, error, {slug}) => [
+        {type: 'Article', id: 'LIST'},
+        {type: 'Article', id: slug}
+      ]
     })
   })
 })
@@ -90,5 +100,6 @@ export const { useGetArticlesQuery,
   useUpdateUserInfoMutation,
   useCreateArticleMutation,
   useDeleteArticleMutation,
-  useUpdateArticleMutation
+  useUpdateArticleMutation,
+  useToggleLikeMutation
 } = articlesAPI

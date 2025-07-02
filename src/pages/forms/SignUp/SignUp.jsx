@@ -11,7 +11,6 @@ export default function SignUp () {
 
   const [serverError, setServerEror] = useState()
   const [errorStatus, setErrorStatus] = useState()
-  console.log(serverError, errorStatus);
 
   const {
     register,
@@ -27,8 +26,8 @@ export default function SignUp () {
     const userInfo = {'user': {username, email, password}}
     
     try {
-      const response = await createUser(userInfo).unwrap()
-      console.log(response);
+      await createUser(userInfo).unwrap()
+      
     } catch (error) {
       const err = error.data.errors
       setServerEror(err)

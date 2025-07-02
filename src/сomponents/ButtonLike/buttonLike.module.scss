@@ -1,0 +1,14 @@
+.button-like {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.not-liked-icon {
+  background-color: inherit;
+}
+
+.liked-icon {
+  background-color: rgb(255, 7, 7);
+}
