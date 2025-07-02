@@ -123,8 +123,8 @@ export default function  AcrticleCreate ({isEdit}) {
                 <input className={`${styles['form__input']} ${styles['form-tags__input-tag']}`} placeholder='Tag'
                 {...register('tags', inputTagValidation)}
                 />
-                <button className={`${styles['form-tags_button']} ${styles['form-tags_button--delete']}`} onClick={clearInputTag}>Delete</button>
-                <button className={`${styles['form-tags_button']} ${styles['form-tags_button--add']}`} onClick={addTag}>Add tag</button>
+                <button className={`${styles['form-tags_button']} ${styles['form-tags_button--delete']}`} onClick={clearInputTag} type='button'>Delete</button>
+                <button className={`${styles['form-tags_button']} ${styles['form-tags_button--add']}`} onClick={addTag} type='button'>Add tag</button>
               </div>
               <div className={styles['form__error-message']}>{errors?.tags && <p>{errors?.tags.message}</p>}</div>
             </label>

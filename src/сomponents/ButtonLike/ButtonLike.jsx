@@ -25,14 +25,4 @@ export default function ButtonLike ({favorited, slug}) {
       }
     </button>
   )
-//   return (
-//     <Button
-//     style={{backgroundColor: 'transparent'}} 
-//     icon={heart}
-//     type="text"
-//     onClick={handleToggleLike}
-//     >
-//     <span>{favoritesCount}</span>
-//     </Button>
-//   )
 }

@@ -51,7 +51,7 @@ export default function ArticlePreview ({article, isFull = false}) {
               )
             }
             <ButtonLike favoritesCount={favoritesCount} slug={slug} favorited={favorited}/>
-            <span>{favoritesCount}</span>
+            <span className={styles['article__count-likes']}>{favoritesCount}</span>
           </div>
           <ul className={`${styles.article__tagsList}`}>
             {tagList.map((tag) => {

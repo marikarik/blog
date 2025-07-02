@@ -40,6 +40,7 @@ export const checkboxValidation = {
 }
 
 export const newPasswordValidation = {
+  required: "Password is required",
   minLength: {
     value: 6,
     message: 'Password length should be from 6 to 40 characters'
@@ -81,4 +82,5 @@ export const inputTagValidation = {
 export const inputValidation = {
   required: 'This field is requierd'
 }
+
 

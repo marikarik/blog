@@ -61,7 +61,7 @@ export default function UserProfile () {
             </div> 
           </label>
           <label className={styles['form__label']} autoComplete='new-password'>New password
-            <input className={styles['form__input']} placeholder='New password'
+            <input className={styles['form__input']} placeholder='New password' type='password'
               {...register('newPassword', newPasswordValidation)}
             />
             <div className={styles['form__error-message']}>{errors?.newPassword && 

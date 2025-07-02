@@ -2,9 +2,11 @@ import { Link, useNavigate } from "react-router-dom"
 import { useGetUserInfoQuery } from "../../store/articlesAPI"
 import { useSelector, useDispatch } from "react-redux"
 import { logIn, logOut } from "../../store/authSlice" 
- 
-import styles from './header.module.scss'
 import { useEffect } from "react"
+ 
+import avatar from './avatar.png'
+import styles from './header.module.scss'
+
 
 
 export default function Header () {
@@ -14,6 +16,7 @@ export default function Header () {
   const token = localStorage.getItem('userToken')
 
   const {data, isLoading, isError, isSuccess} = useGetUserInfoQuery(token, {skip: !token})
+  console.log(data);
 
 
   useEffect(() => {
@@ -50,7 +53,7 @@ export default function Header () {
             <Link to='/create-article' className={`${styles.header__link_createArticle} ${styles.header__button_create}`}>Create article</Link>
             <Link to='/user-profile' className={styles['header__user']}>
               <div className={styles['header__user-name']}>{userInfo.username}</div>
-              <img src='#' className={styles['header__user-img']} alt='image user'/>
+              <img src={data.user.image || avatar} className={styles['header__user-img']} alt='image user'/>
             </Link>
             <button className={styles['header__button-logout']} onClick={handleLogOut}>Log Out</button>
           </>

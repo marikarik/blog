@@ -16,9 +16,11 @@
   &__header_title{
     text-decoration: none;
     overflow: hidden;
-    height: 23px;
+    height: 27px;
     display: flex;
-    
+    justify-items: center;
+    margin-right: 13px;
+
   }
 
   &__body {
@@ -37,8 +39,16 @@
   &__tagsList{
     padding: 0;
     display: flex;
+    margin-bottom: 3px;
   }
 
+  &__count-likes{
+    font-family: Inter UI;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0px;
+  }
   &__summary {
     // max-width: 682px;
     max-height: 45px;
@@ -46,6 +56,7 @@
     line-height: 22px;
     color: rgba(0, 0, 0, 0.75);
     overflow: hidden;
+    
   }
   
   &__meta {
@@ -53,7 +64,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    height: 46px;
+    // height: 46px;
 
     &-wrap{
       display: flex;
@@ -86,7 +97,7 @@
 
 .article__header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   // gap: 13px;
 
   &_title {

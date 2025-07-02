@@ -35,7 +35,7 @@ export default function SignIn () {
         token: token,
         user: {
           username: username,
-          email: email
+          email: email,
         }
       }))
       navigate('/')
