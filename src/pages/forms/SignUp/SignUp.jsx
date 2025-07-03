@@ -14,7 +14,7 @@ import { Result, Alert } from 'antd'
 import styles from '../form.module.scss'
 
 export default function SignUp() {
-  const [serverError, setServerEror] = useState()
+  const [serverError, setServerError] = useState()
   const [errorStatus, setErrorStatus] = useState()
 
   const {
@@ -34,12 +34,18 @@ export default function SignUp() {
       await createUser(userInfo).unwrap()
     } catch (error) {
       const err = error.data.errors
-      setServerEror(err)
+      setServerError(err)
       setErrorStatus(error.status)
     }
   }
 
   const password = watch('password')
+
+  const clearServerError = (fieldName) => {
+  if (serverError?.[fieldName]) {
+    setServerError((prev) => ({ ...prev, [fieldName]: null }))
+  }
+}
 
   return (
     <>
@@ -58,6 +64,7 @@ export default function SignUp() {
                 className={`${styles['form__input']} ${errors?.username || serverError?.username ? styles['login-form__input-error'] : ''}`}
                 placeholder="Username"
                 {...register('username', userValidation)}
+                onChange={(e) => {clearServerError('username')}}
               />
               <div className={styles['form__error-message']}>
                 {errors?.username && <p>{errors?.username.message}</p>}
