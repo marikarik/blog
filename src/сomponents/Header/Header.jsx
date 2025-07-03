@@ -3,6 +3,7 @@ import { useGetUserInfoQuery } from '../../store/articlesAPI'
 import { useSelector, useDispatch } from 'react-redux'
 import { logIn, logOut } from '../../store/authSlice'
 import { useEffect } from 'react'
+import { articlesAPI } from '../../store/articlesAPI'
 
 import avatar from './avatar.png'
 import styles from './header.module.scss'
@@ -33,6 +34,7 @@ export default function Header() {
   const handleLogOut = () => {
     localStorage.clear()
     dispatch(logOut())
+    dispatch(articlesAPI.util.invalidateTags([{ type: 'Article', id: 'LIST' }]))
     navigate('/')
   }
 

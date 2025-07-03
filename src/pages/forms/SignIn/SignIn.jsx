@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { emailValidation, passwordValidation } from '../../../validation/validators'
-import { useUserLoginMutation } from '../../../store/articlesAPI'
+import { useUserLoginMutation, articlesAPI } from '../../../store/articlesAPI'
 import { logIn } from '../../../store/authSlice'
 import { useDispatch } from 'react-redux'
 
@@ -36,6 +36,7 @@ export default function SignIn() {
           },
         })
       )
+      dispatch(articlesAPI.util.invalidateTags([{ type: 'Article', id: 'LIST' }]))
       navigate('/')
     } catch (error) {
       console.error(error)
