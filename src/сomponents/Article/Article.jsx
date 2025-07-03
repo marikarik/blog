@@ -4,7 +4,6 @@ import { format } from 'date-fns'
 import { useDeleteArticleMutation } from '../../store/articlesAPI'
 
 import ButtonLike from '../../сomponents/ButtonLike/ButtonLike'
-import { HeartOutlined } from '@ant-design/icons'
 import { Tag, Popconfirm, Alert } from 'antd'
 import styles from './article.module.scss'
 
@@ -77,7 +76,7 @@ export default function ArticlePreview({ article, isFull = false }) {
               <span className={`${styles.article__autor_name}`}>{author.username}</span>
               <span className={`${styles.article__date}`}>{formatDate(createdAt)}</span>
             </div>
-            <img className={`${styles.article__autor_image}`} alt="oops" src={author.image}></img>
+            <img className={`${styles.article__autor_image}`} alt="avatar" src={author.image}></img>
           </div>
           {nickname === author.username && isFull ? (
             <div className={styles['article-actions']}>

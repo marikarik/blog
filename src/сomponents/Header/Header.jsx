@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logIn, logOut } from '../../store/authSlice'
 import { useEffect } from 'react'
 
-import avatar from './avatar.png'
+import avatar from './avatar.jpeg'
 import styles from './header.module.scss'
 
 export default function Header() {
@@ -65,7 +65,7 @@ export default function Header() {
           <Link to="/user-profile" className={styles['header__user']}>
             <div className={styles['header__user-name']}>{userInfo.username}</div>
             <img
-              src={data.user.image || avatar}
+              src={data?.user.image || avatar}
               className={styles['header__user-img']}
               alt="image user"
             />
