@@ -106,7 +106,7 @@ export default function SignUp() {
             <label className={styles['form__label-checkbox']}>
               <input
                 type="checkbox"
-                className={styles['login-form__checkbox']}
+                className={styles['form__checkbox']}
                 {...register('checkbox', checkboxValidation)}
               />
               I agree to the processing of my personal information
