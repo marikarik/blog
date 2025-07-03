@@ -60,7 +60,7 @@ export default function ArticlePreview({ article, isFull = false }) {
             <span className={styles['article__count-likes']}>{favoritesCount}</span>
           </div>
           <ul className={`${styles.article__tagsList}`}>
-            {tagList.map((tag) => {
+            {tagList.slice(0, 7).map((tag) => {
               return (
                 <li>
                   <Tag>{tag}</Tag>

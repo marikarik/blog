@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logIn, logOut } from '../../store/authSlice'
 import { useEffect } from 'react'
 
-import avatar from './avatar.jpeg'
+import avatar from './avatar.png'
 import styles from './header.module.scss'
 
 export default function Header() {
