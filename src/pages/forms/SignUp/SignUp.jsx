@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   userValidation,
   emailValidation,
@@ -8,7 +9,8 @@ import {
   passwordRepeatValidation,
   checkboxValidation,
 } from '../../../validation/validators'
-import { useCreateUserMutation } from '../../../store/articlesAPI'
+import { useCreateUserMutation, useUserLoginMutation } from '../../../store/articlesAPI'
+import { logIn } from '../../../store/authSlice'
 import { Result, Alert } from 'antd'
 
 import styles from '../form.module.scss'
@@ -16,6 +18,10 @@ import styles from '../form.module.scss'
 export default function SignUp() {
   const [serverError, setServerError] = useState()
   const [errorStatus, setErrorStatus] = useState()
+  const [userLogin] = useUserLoginMutation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
 
   const {
     register,
@@ -24,14 +30,31 @@ export default function SignUp() {
     watch,
   } = useForm()
 
-  const [createUser, { isSuccess }] = useCreateUserMutation()
+  const [createUser, { isSuccess, isLoading }] = useCreateUserMutation()
 
   const onSubmit = async (data) => {
     const { username, email, password } = data
     const userInfo = { user: { username, email, password } }
 
     try {
-      await createUser(userInfo).unwrap()
+      const responsCreateUser = await createUser(userInfo).unwrap()
+      console.log(responsCreateUser);
+      const responseUserLogin = await userLogin({user: {email, password}}).unwrap()
+      const { token} = responseUserLogin.user
+            localStorage.setItem('userToken', token)
+            localStorage.setItem('user', JSON.stringify(responseUserLogin.user))
+            dispatch(
+              logIn({
+                isLogged: true,
+                token: token,
+                user: {
+                  username: username,
+                  email: email,
+                },
+              })
+            )
+            navigate('/')
+      
     } catch (error) {
       const err = error.data.errors
       setServerError(err)
@@ -121,13 +144,7 @@ export default function SignUp() {
             <div className={styles['form__error-message']}>
               {errors?.checkbox && <p>{errors?.checkbox.message}</p>}
             </div>
-            {isSuccess ? (
-              <Alert
-                message="Registration successful! You can now log in to your profiless Text"
-                type="success"
-              />
-            ) : null}
-            <button className={styles['form__button']}>Create</button>
+            <button disabled={isLoading} className={styles['form__button']}>Create</button>
             <p className={styles['form__button-text']}>
               Already have an account?
               <Link className={styles['form__link']} to="/sign-in">

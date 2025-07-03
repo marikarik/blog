@@ -16,7 +16,7 @@ export default function SignIn() {
     handleSubmit,
   } = useForm()
 
-  const [userLogin, { isError }] = useUserLoginMutation()
+  const [userLogin, { isError, isLoading }] = useUserLoginMutation()
   const navigate = useNavigate()
 
   const onSubmit = async (data) => {
@@ -78,7 +78,7 @@ export default function SignIn() {
             type="error"
           />
         ) : null}
-        <button type="submit" className={styles['form__button']}>
+        <button type="submit" className={styles['form__button']} disabled={isLoading}>
           Login
         </button>
         <p className={styles['form__button-text']}>

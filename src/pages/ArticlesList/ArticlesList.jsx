@@ -1,15 +1,18 @@
 import Article from '../../сomponents/Article/Article'
 import { useGetArticlesQuery } from '../../store/articlesAPI'
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { Pagination, Skeleton, Result } from 'antd'
 import styles from './articlesList.module.scss'
 
 export default function ArticlesList() {
-  const [offset, setOffset] = useState(0)
-  const changePage = (page) => {
-    setOffset((page - 1) * 5)
-  }
+  const [searchParams, setSearchParams] = useSearchParams()
+  console.log(searchParams)
+  const currentPage = Number(searchParams.get('page')) || 1
+
+  const offset = (currentPage - 1) * 5
+
   const { data, isLoading, isError } = useGetArticlesQuery(offset)
   const articles = data?.articles
   return (
@@ -38,7 +41,8 @@ export default function ArticlesList() {
             pageSize={5}
             total={data.articlesCount}
             showSizeChanger={false}
-            onChange={changePage}
+            current={currentPage}
+            onChange={(page) => setSearchParams({ page })}
           />
         </>
       )}
