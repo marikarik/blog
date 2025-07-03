@@ -5,16 +5,16 @@
   display: flex;
   justify-content: center;
   margin-right: 3px;
+
+    &__outlined{
+      overflow: visible;
+    }
+
+    &__filled{
+      overflow: visible;
+    }
 }
 
-.not-liked-icon {
-  background-color: inherit;
-}
-
-.liked-icon {
-  background-color: rgb(255, 7, 7);
   
-  &__outlined {
-    overflow: visible;
-  }
-}
+
+

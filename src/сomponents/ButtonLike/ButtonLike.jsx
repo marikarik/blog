@@ -17,7 +17,7 @@ export default function ButtonLike({ favorited, slug }) {
   }
   return (
     <button disabled={isLoading} className={styles['button-like']} onClick={handleToggleLike}>
-      {favorited ? <HeartFilled /> : <HeartOutlined className={styles['button-like__outlined']} />}
+      {favorited ? <HeartFilled className={styles['button-like__filled']}/> : <HeartOutlined className={styles['button-like__outlined']} />}
     </button>
   )
 }
