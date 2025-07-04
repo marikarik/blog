@@ -22,7 +22,6 @@ export default function SignUp() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-
   const {
     register,
     formState: { errors },
@@ -30,31 +29,29 @@ export default function SignUp() {
     watch,
   } = useForm()
 
-  const [createUser, { isSuccess, isLoading }] = useCreateUserMutation()
+  const [createUser, { isLoading }] = useCreateUserMutation()
 
   const onSubmit = async (data) => {
     const { username, email, password } = data
     const userInfo = { user: { username, email, password } }
 
     try {
-      const responsCreateUser = await createUser(userInfo).unwrap()
-      console.log(responsCreateUser);
-      const responseUserLogin = await userLogin({user: {email, password}}).unwrap()
-      const { token} = responseUserLogin.user
-            localStorage.setItem('userToken', token)
-            localStorage.setItem('user', JSON.stringify(responseUserLogin.user))
-            dispatch(
-              logIn({
-                isLogged: true,
-                token: token,
-                user: {
-                  username: username,
-                  email: email,
-                },
-              })
-            )
-            navigate('/')
-      
+      await createUser(userInfo).unwrap()
+      const responseUserLogin = await userLogin({ user: { email, password } }).unwrap()
+      const { token } = responseUserLogin.user
+      localStorage.setItem('userToken', token)
+      localStorage.setItem('user', JSON.stringify(responseUserLogin.user))
+      dispatch(
+        logIn({
+          isLogged: true,
+          token: token,
+          user: {
+            username: username,
+            email: email,
+          },
+        })
+      )
+      navigate('/')
     } catch (error) {
       const err = error.data.errors
       setServerError(err)
@@ -65,10 +62,10 @@ export default function SignUp() {
   const password = watch('password')
 
   const clearServerError = (fieldName) => {
-  if (serverError?.[fieldName]) {
-    setServerError((prev) => ({ ...prev, [fieldName]: null }))
+    if (serverError?.[fieldName]) {
+      setServerError((prev) => ({ ...prev, [fieldName]: null }))
+    }
   }
-}
 
   return (
     <>
@@ -87,7 +84,9 @@ export default function SignUp() {
                 className={`${styles['form__input']} ${errors?.username || serverError?.username ? styles['login-form__input-error'] : ''}`}
                 placeholder="Username"
                 {...register('username', userValidation)}
-                onChange={(e) => {clearServerError('username')}}
+                onChange={() => {
+                  clearServerError('username')
+                }}
               />
               <div className={styles['form__error-message']}>
                 {errors?.username && <p>{errors?.username.message}</p>}
@@ -144,7 +143,9 @@ export default function SignUp() {
             <div className={styles['form__error-message']}>
               {errors?.checkbox && <p>{errors?.checkbox.message}</p>}
             </div>
-            <button disabled={isLoading} className={styles['form__button']}>Create</button>
+            <button disabled={isLoading} className={styles['form__button']}>
+              Create
+            </button>
             <p className={styles['form__button-text']}>
               Already have an account?
               <Link className={styles['form__link']} to="/sign-in">
